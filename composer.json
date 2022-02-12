@@ -1,11 +1,14 @@
 {
-    "name": "hyperf/database",
-    "description": "A flexible database library.",
+    "name": "zhuangyuanhui/database-pgsql",
+    "description": "A flexible swoole client postgresql database library.",
     "license": "MIT",
     "keywords": [
         "php",
         "hyperf",
-        "database"
+        "database",
+        "postgresql",
+        "pgsql",
+        "swoole"
     ],
     "homepage": "https://hyperf.io",
     "support": {
