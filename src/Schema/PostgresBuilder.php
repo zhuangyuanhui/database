@@ -11,6 +11,8 @@ declare(strict_types=1);
  */
 namespace Hyperf\Database\Schema;
 
+use Hyperf\Database\Query\Processors\PostgresProcessor;
+
 class PostgresBuilder extends Builder
 {
     /**
@@ -204,5 +206,25 @@ class PostgresBuilder extends Builder
         }
 
         return [$schema ?: 'public', implode('.', $table)];
+    }
+
+    /**
+     * Get the column type listing for a given table.
+     *
+     * @param string $table
+     * @return array
+     */
+    public function getColumnTypeListing($table)
+    {
+        $table = $this->connection->getTablePrefix() . $table;
+
+        $results = $this->connection->select(
+            $this->grammar->compileColumnListing(),
+            [$this->connection->getDatabaseName(), $table]
+        );
+
+        /** @var PostgresProcessor $processor */
+        $processor = $this->connection->getPostProcessor();
+        return $processor->processListing($results);
     }
 }
